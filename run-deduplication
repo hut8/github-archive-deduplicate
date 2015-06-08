@@ -1,0 +1,8 @@
+#!/bin/bash
+for duplicate_input in $(cat "files-containing-duplicates.txt");
+do
+    duplicate_input_path="/github-archive/2015/${duplicate_input}"
+    output_path="./output/${duplicate_input%.json.gz}-deduped.json.gz"
+    echo -e "${duplicate_input_path}\t->\t${output_path}"
+    zcat "${duplicate_input_path}" | ./deduplicate-file | gzip -c > $output_path
+done
