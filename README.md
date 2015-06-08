@@ -10,3 +10,4 @@ I mostly just uploaded this so I'd have it and so that others can check my work 
 
 ### Output
 * **duplicate-event-ids.txt** duplicates that were found using above tools
+* **duplicates.txt** generated from the output of `events-per-file` run through `sort` and `uniq`
