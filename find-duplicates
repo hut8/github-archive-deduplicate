@@ -1,0 +1,16 @@
+#!/bin/bash
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+scratch_path='/tmp/events.txt.bz2'
+output_path="~/duplicate-event-results.txt"
+
+if [[ -f ${scratch_path} ]];
+then
+    echo "Looks like ${scratch_path} already exists. I was going to write to that."
+    exit 1
+fi
+
+echo "finding events in each file. output: /tmp/events.txt.bz2"
+"${DIR}/events-per-file" | gzip -c > "${scratch_path}"
+echo "done that. now finding duplicates."
+zcat "${scratch_path}" | sort --parallel 3 | uniq --repeated --count > "${output_path}"
+echo "results are now in ${output_path}"
